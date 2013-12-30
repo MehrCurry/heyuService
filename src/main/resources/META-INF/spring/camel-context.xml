@@ -1,9 +1,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
     <camelContext xmlns="http://camel.apache.org/schema/spring" id="camel">
         <route id="heyu">
-            <from uri="restlet:http://0.0.0.0:7777/x10/{code}/{command}?restletMethods=get"/>
+            <from uri="restlet:http://0.0.0.0:7777/x10/{command}/{code}?restletMethods=get"/>
             <setHeader headerName="CamelExecCommandArgs">
-                <simple>${header.code} ${header.command}</simple>
+                <simple>${header.command} ${header.code}</simple>
             </setHeader>
             <to uri="log:restlet?showAll=true&amp;multiline=true"/>
             <to uri="exec:/usr/bin/heyu" />
